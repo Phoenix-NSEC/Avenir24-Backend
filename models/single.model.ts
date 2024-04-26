@@ -1,31 +1,21 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-interface IRegister extends Document {
+interface ISingle extends Document {
   event: string;
-  teamName: string;
-  teamLeaderName: string;
+  name: string;
   collegeName: string;
   whatsappNumber: string;
   alternateNumber: string;
   email: string;
   payment: string;
-  members: {
-    name: string;
-    info: string;
-  }[];
 }
 
-const registerSchema = new Schema<IRegister>({
+const singleRegisterSchema = new Schema<ISingle>({
   event: {
     type: String,
     required: true,
-    unique: true,
   },
-  teamName: {
-    type: String,
-    required: true,
-  },
-  teamLeaderName: {
+  name: {
     type: String,
     required: true,
   },
@@ -49,21 +39,8 @@ const registerSchema = new Schema<IRegister>({
     type: String,
     required: true,
   },
-  members: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      info: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-
 });
 
-const RegisterModel = mongoose.model<IRegister>("Register", registerSchema);
+const SingleRegisterModel = mongoose.model<ISingle>("Single", singleRegisterSchema);
 
-export default RegisterModel;
+export default SingleRegisterModel;

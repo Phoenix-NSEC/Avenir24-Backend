@@ -1,8 +1,10 @@
+require('dotenv').config()
 import express, { Application } from "express";
 import eventRouter from "./routes/event.routes";
 import registrationRouter from "./routes/registration.routes";
 import cors from "cors";
 const app: Application = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
