@@ -8,7 +8,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async (mailOptions) => {
+const sendEmail = async (mailOptions: {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}) => {
   try {
     const info = await transporter.sendMail(mailOptions);
     return info;

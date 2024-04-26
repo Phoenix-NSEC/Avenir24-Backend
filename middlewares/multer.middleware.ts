@@ -1,5 +1,6 @@
 import { Request } from "express";
-const multer = require("multer");
+// const multer = require("multer");
+import multer from "multer";
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
@@ -10,6 +11,7 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: DestinationCallback
   ): void => {
+
     callback(null, "./public/temp");
   },
 

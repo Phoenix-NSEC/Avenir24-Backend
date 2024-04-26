@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import eventRouter from "./routes/event.routes";
+import registrationRouter from "./routes/registration.routes";
 import cors from "cors";
 const app: Application = express();
 
@@ -13,6 +14,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/v1/events", eventRouter);
+app.use("/api/v1/registration", registrationRouter);
 
 export { app };
 

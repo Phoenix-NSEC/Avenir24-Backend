@@ -3,7 +3,7 @@ import { Express } from "express";
 import EventModel from "../models/event.model";
 const uploadOnCloudinary = require("../utils/cloudinary");
 const nodemailer = require("nodemailer");
-const mailTemplate = require("../template/mailTemplate.js");
+const mailTemplate = require("../template/mailTemplate");
 
 interface MulterRequest extends Request {
   files: any;
@@ -152,7 +152,7 @@ const verifyAndSendEmail = async (req: Request, res: Response) => {
     html: mailTemplate(),
   };
 
-  transporter.sendMail(mailOptions, function (error: any, info: any) {
+  transporter.sendMail(mailOptions, function(error: any, info: any) {
     if (error) {
       console.log(error);
     } else {

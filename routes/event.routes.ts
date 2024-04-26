@@ -20,7 +20,7 @@ router.route("/add-events").post(
   addEvents as any
 );
 
-+router.route("/:subCategory").get(getEvents as any);
+router.route("/:subCategory").get(getEvents as any);
 
 router.route("/:sub/:eventId").get(getIndividualEvent as any);
 
