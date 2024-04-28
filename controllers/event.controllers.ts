@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { Express } from "express";
+
 import EventModel from "../models/event.model";
+
 const uploadOnCloudinary = require("../utils/cloudinary");
 const nodemailer = require("nodemailer");
 const mailTemplate = require("../template/mailTemplate");
