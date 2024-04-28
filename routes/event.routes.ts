@@ -16,6 +16,10 @@ router.route("/add-events").post(
       name: "rulebook",
       maxCount: 1,
     },
+    {
+      name: "imgUrl",
+      maxCount: 1,
+    },
   ]),
   addEvents as any
 );

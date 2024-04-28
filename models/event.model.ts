@@ -6,6 +6,14 @@ interface IEvents extends Document {
   registrationFees: string;
   rulebook: string;
   subCategory: string;
+  teamsize: string;
+  date: string;
+  prizePool: string;
+  eventPoster: string;
+  coordinators: {
+    name: string;
+    phoneNumber: string;
+  }[];
 }
 
 const eventSchema = new Schema<IEvents>({
@@ -29,10 +37,41 @@ const eventSchema = new Schema<IEvents>({
     required: true,
   },
 
+  // teamsize: {
+  //   type: String,
+  //   required: true,
+  // },
+
   rulebook: {
     type: String,
     required: true,
   },
+
+  eventPoster: {
+    type: String,
+    required: true,
+  },
+
+  date: {
+    type: String,
+    required: true,
+  },
+  prizePool: {
+    type: String,
+    required: true,
+  },
+  coordinators: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      number: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const EventModel = mongoose.model<IEvents>("Event", eventSchema);

@@ -19,55 +19,37 @@ interface DateObject {
 }
 const addEvents = async (req: MulterRequest, res: Response) => {
   try {
-    // const data = JSON.parse(req.body);
-    console.log(req.body.name);
-    // return res.send(data);
+    const data = JSON.parse(req.body.data);
+    console.log(data);
+
+    console.log(data.subCategory);
+
     const rulebookLocalPath = req.files?.rulebook[0]?.path;
-    console.log(rulebookLocalPath);
+
     const rulebook = await uploadOnCloudinary(rulebookLocalPath);
-    console.log(rulebook.url);
-    // const event = await EventModel.create({
-    //   eventName: data.name,
-    //   description: data.description,
-    //   registrationFees: data.registrationFees,
-    //   subCategory: data.subCategory.toLowerCase(),
-    //   rulebook: rulebook.url,
-    // });
+
+    const imgUrlLocalPath = req.files?.imgUrl[0]?.path;
+
+    const imgUrl = await uploadOnCloudinary(imgUrlLocalPath);
+
+    const event = await EventModel.create({
+      eventName: data.name,
+      description: data.description,
+      registrationFees: data.registrationFees,
+      subCategory: data.subCategory.toLowerCase(),
+      rulebook: rulebook.url,
+      // teamSize: data.teamsize,
+      date: data.date,
+      prizePool: data.prizePool,
+      eventPoster: imgUrl.url,
+      coordinators: data.coordinators,
+    });
     return res.status(200).json({
       message: "Event added successfully",
-
+      imgUrl: imgUrl.url,
+      rulebook: rulebook.url,
       // event,
     });
-    // const coordinators: string = req.body.coordinators;
-    // const coordinatorStrings: string[] = coordinators.split(",");
-    // const eventData: Coordinator[] = [];
-    // coordinatorStrings.forEach((coordinatorString: string) => {
-    //   const parts: string[] = coordinatorString.split(":");
-    //   const name: string = parts[0].trim();
-    //   const phoneNumber: string = parts[1].trim();
-    //   const coordinatorData: Coordinator = {
-    //     name: name,
-    //     phone_number: phoneNumber,
-    //   };
-    //   eventData.push(coordinatorData);
-    // });
-
-    // return res.send(eventData);
-
-    // const input: string = req.body.date;
-
-    // const parts: string[] = input.split(",");
-    // console.log(parts);
-    // const dates: any = {};
-
-    // parts.forEach((part: string) => {
-    //   const [rawKey, rawValue] = part.split(":");
-    //   const key = rawKey.trim(); // Trim the key
-    //   const value = rawValue.trim(); // Trim the value
-    //   dates[key] = value;
-    // });
-
-    // return res.json(dates);
   } catch (error) {
     console.error("Error adding event:", error);
     return res.status(500).json({
@@ -152,7 +134,7 @@ const verifyAndSendEmail = async (req: Request, res: Response) => {
     html: mailTemplate(),
   };
 
-  transporter.sendMail(mailOptions, function(error: any, info: any) {
+  transporter.sendMail(mailOptions, function (error: any, info: any) {
     if (error) {
       console.log(error);
     } else {
