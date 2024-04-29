@@ -8,6 +8,7 @@ interface ISingle extends Document {
   alternateNumber: string;
   email: string;
   payment: string;
+  isVerified: boolean;
 }
 
 const singleRegisterSchema = new Schema<ISingle>({
@@ -39,8 +40,15 @@ const singleRegisterSchema = new Schema<ISingle>({
     type: String,
     required: true,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const SingleRegisterModel = mongoose.model<ISingle>("Single", singleRegisterSchema);
+const SingleRegisterModel = mongoose.model<ISingle>(
+  "Single",
+  singleRegisterSchema
+);
 
 export default SingleRegisterModel;

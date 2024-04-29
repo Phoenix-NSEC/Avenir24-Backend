@@ -5,8 +5,7 @@ import {
   deleteEvent,
   getEvents,
   getIndividualEvent,
-  verifyAndSendEmail,
-} from "../controllers/event.controllers";
+} from "../controllers/events/event.controllers";
 
 const router = Router();
 
@@ -29,7 +28,5 @@ router.route("/:subCategory").get(getEvents as any);
 router.route("/:sub/:eventId").get(getIndividualEvent as any);
 
 router.route("/delete-event/:eventId").delete(deleteEvent as any);
-
-router.route("/send-email").post(verifyAndSendEmail);
 
 export default router;

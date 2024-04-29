@@ -9,6 +9,7 @@ interface IMultiple extends Document {
   alternateNumber: string;
   email: string;
   payment: string;
+  isVerified: boolean;
   members: {
     name: string;
     info: string;
@@ -48,6 +49,10 @@ const multipleRegisterSchema = new Schema<IMultiple>({
     type: String,
     required: true,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   members: [
     {
       name: {
@@ -60,9 +65,11 @@ const multipleRegisterSchema = new Schema<IMultiple>({
       },
     },
   ],
-
 });
 
-const MultipleRegisterModel = mongoose.model<IMultiple>("Multiple", multipleRegisterSchema);
+const MultipleRegisterModel = mongoose.model<IMultiple>(
+  "Multiple",
+  multipleRegisterSchema
+);
 
 export default MultipleRegisterModel;

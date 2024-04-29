@@ -1,23 +1,14 @@
 import { Request, Response } from "express";
 
-import EventModel from "../models/event.model";
-
-const uploadOnCloudinary = require("../utils/cloudinary");
+import EventModel from "../../models/event.model";
+const uploadOnCloudinary = require("../../utils/cloudinary");
 const nodemailer = require("nodemailer");
-const mailTemplate = require("../template/mailTemplate");
+const mailTemplate = require("../../template/mailTemplate");
 
 interface MulterRequest extends Request {
   files: any;
 }
 
-interface Coordinator {
-  name: string;
-  phone_number: string;
-}
-
-interface DateObject {
-  [key: string]: string;
-}
 const addEvents = async (req: MulterRequest, res: Response) => {
   try {
     const data = JSON.parse(req.body.data);
@@ -47,9 +38,7 @@ const addEvents = async (req: MulterRequest, res: Response) => {
     });
     return res.status(200).json({
       message: "Event added successfully",
-      imgUrl: imgUrl.url,
-      rulebook: rulebook.url,
-      // event,
+      event,
     });
   } catch (error) {
     console.error("Error adding event:", error);
@@ -119,39 +108,4 @@ const deleteEvent = async (req: Request, res: Response) => {
   }
 };
 
-const verifyAndSendEmail = async (req: Request, res: Response) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.MAIL_SENDER,
-      pass: process.env.MAIL_PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.MAIL_SENDER,
-    to: "abhinilnath10@gmail.com",
-    subject: "Test123",
-    html: mailTemplate(),
-  };
-
-  transporter.sendMail(mailOptions, function (error: any, info: any) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-
-  return res.status(200).json({
-    message: "Email sent successfully",
-  });
-};
-
-export {
-  addEvents,
-  getEvents,
-  getIndividualEvent,
-  deleteEvent,
-  verifyAndSendEmail,
-};
+export { addEvents, getEvents, getIndividualEvent, deleteEvent };
