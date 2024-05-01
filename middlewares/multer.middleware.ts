@@ -11,8 +11,7 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: DestinationCallback
   ): void => {
-
-    callback(null, "./public/temp");
+    callback(null, "./tmp");
   },
 
   filename: (
