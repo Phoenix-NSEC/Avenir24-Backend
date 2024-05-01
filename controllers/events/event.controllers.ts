@@ -14,31 +14,24 @@ const addEvents = async (req: MulterRequest, res: Response) => {
     const data = JSON.parse(req.body.data);
     console.log(data);
 
-    console.log(data.subCategory);
-
-    const rulebookLocalPath = req.files?.rulebook[0]?.path;
-
-    const rulebook = await uploadOnCloudinary(rulebookLocalPath);
-
-    const imgUrlLocalPath = req.files?.imgUrl[0]?.path;
-
-    const imgUrl = await uploadOnCloudinary(imgUrlLocalPath);
+    console.log(data.teamsize);
 
     const event = await EventModel.create({
       eventName: data.name,
       description: data.description,
       registrationFees: data.registrationFees,
       subCategory: data.subCategory.toLowerCase(),
-      rulebook: rulebook.url,
-      // teamSize: data.teamsize,
+      rulebook: data.rulebook,
+
       date: data.date,
       prizePool: data.prizePool,
-      eventPoster: imgUrl.url,
+      eventPoster: data.imgUrl,
       coordinators: data.coordinators,
+      teamsize: data.teamsize,
     });
     return res.status(200).json({
       message: "Event added successfully",
-      event,
+      // event,
     });
   } catch (error) {
     console.error("Error adding event:", error);

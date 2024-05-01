@@ -37,10 +37,10 @@ const eventSchema = new Schema<IEvents>({
     required: true,
   },
 
-  // teamsize: {
-  //   type: String,
-  //   required: true,
-  // },
+  teamsize: {
+    type: String,
+    required: true,
+  },
 
   rulebook: {
     type: String,
