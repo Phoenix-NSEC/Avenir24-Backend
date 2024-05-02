@@ -8,18 +8,14 @@ import WingModel from "../../models/wing.model";
 import EventModel from "../../models/event.model";
 
 const addWingDetails = async (req: MulterRequest, res: Response) => {
-  const { wingName, wingDescription, modalText } = req.body;
-  console.log(wingName, wingDescription, modalText);
-  const wingPosterLocalPath = req.files?.wingImg[0]?.path;
-  const wingPoster = await uploadOnCloudinary(wingPosterLocalPath);
-  console.log(wingPoster.url);
+  const { wingName, wingDescription, modalText, wingPoster } = req.body;
 
   try {
     const wing = await WingModel.create({
       wingName: wingName.toLowerCase(),
       wingDescription,
       modalText,
-      wingPoster: wingPoster.url,
+      wingPoster: wingPoster,
     });
 
     return res.status(200).json({
@@ -34,7 +30,7 @@ const addWingDetails = async (req: MulterRequest, res: Response) => {
   }
 };
 
-const getWinDetails = async (req: Request, res: Response) => {
+const getWingDetails = async (req: Request, res: Response) => {
   try {
     const wings = await WingModel.find({ wingName: req.params.wingName });
     const events = await EventModel.find({ subCategory: req.params.wingName });
@@ -49,4 +45,4 @@ const getWinDetails = async (req: Request, res: Response) => {
     });
   }
 };
-export { addWingDetails, getWinDetails };
+export { addWingDetails, getWingDetails };
