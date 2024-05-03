@@ -60,7 +60,9 @@ const getEvents = async (req: Request, res: Response) => {
 const getIndividualEvent = async (req: Request, res: Response) => {
   try {
     const _id = req.params.eventId;
+    console.log(_id);
     const event = await EventModel.findOne({ _id });
+    console.log(event);
     if (!event) {
       return res.status(404).json({
         message: "Event not found",

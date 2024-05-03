@@ -9,7 +9,7 @@ import EventModel from "../../models/event.model";
 
 const addWingDetails = async (req: MulterRequest, res: Response) => {
   const { wingName, wingDescription, modalText, wingPoster } = req.body;
-
+  console.log(wingName, wingDescription, modalText, wingPoster);
   try {
     const wing = await WingModel.create({
       wingName: wingName.toLowerCase(),

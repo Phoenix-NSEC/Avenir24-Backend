@@ -24,8 +24,7 @@ router.route("/add-events").post(
 );
 
 router.route("/:subCategory").get(getEvents as any);
-
-router.route("/:eventId").get(getIndividualEvent as any);
+router.route("/:sub/:eventId").get(getIndividualEvent as any);
 
 router.route("/delete-event/:eventId").delete(deleteEvent as any);
 

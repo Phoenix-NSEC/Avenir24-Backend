@@ -7,15 +7,7 @@ import {
 
 const router = Router();
 
-router.route("/add-wingdetails").post(
-  upload.fields([
-    {
-      name: "wingImg",
-      maxCount: 1,
-    },
-  ]),
-  addWingDetails as any
-);
+router.route("/add-wingdetails").post(addWingDetails as any);
 
 router.route("/get-wingdetails/:wingName").get(getWingDetails as any);
 
