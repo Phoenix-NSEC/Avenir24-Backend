@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const corsOptions = {
-  origin: ["https://avenir-admin-panel.vercel.app", "http://localhost:3000"],
+  origin: ["https://avenir-admin-panel.vercel.app", "http://localhost:3000", "https://avenir-24-demo-inky.vercel.app"],
 };
 
 app.use(cors(corsOptions));
