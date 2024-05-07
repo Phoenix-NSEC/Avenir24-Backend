@@ -16,20 +16,28 @@ const getSingleEventDetails = async (req: Request, res: Response) => {
 const getCSVData = async (req: Request, res: Response) => {
   const name = req.body.name;
   console.log(name);
-  const solo = await SingleRegisterModel.find({ event: name });
-  const group = await MultipleRegisterModel.find({ event: name });
+  let solo = [];
+  let group = [];
 
-  if (solo.length > 0) {
-    return res.status(200).json({
-      message: "Event details fetched successfully",
-      data: solo,
+  if (name === "Robo Soccer" || name === "Terra Rover" || name === "Robo War") {
+    solo = await SingleRegisterModel.find({ event: name });
+    group = await MultipleRegisterModel.find({
+      $or: [
+        { event: name },
+        { event: "COMBO 1 (Robo Soccer, Robo War, Terra Rover)" },
+      ],
     });
   } else {
-    return res.status(200).json({
-      message: "Event details fetched successfully",
-      data: group,
-    });
+    solo = await SingleRegisterModel.find({ event: name });
+    group = await MultipleRegisterModel.find({ event: name });
   }
+
+  const data = solo.length > 0 ? solo : group;
+
+  return res.status(200).json({
+    message: "Event details fetched successfully",
+    data: data,
+  });
 };
 
 export { getCSVData, getSingleEventDetails };
