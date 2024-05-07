@@ -12,11 +12,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const corsOptions = {
-  origin: "https://avenir-admin-panel.vercel.app",
+  origin: [
+    "https://avenir-admin-panel.vercel.app",
+    "http://localhost:3000",
+    "https://avenir-24-demo-inky.vercel.app",
+    "https://www.avenirnsec.live",
+  ],
 };
 
 app.use(cors(corsOptions));
-
 app.get("/", async (req, res) => {
   res.status(200).json("Health check endpoint for the server");
 });
