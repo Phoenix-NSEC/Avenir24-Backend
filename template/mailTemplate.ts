@@ -5,7 +5,7 @@ const mailTemplate = ({
 }: {
   participantName: string;
   eventName: string;
-  eventDate: string;
+  eventDate?: string;
 }) => {
   return `
   <!DOCTYPE html>
@@ -17,7 +17,7 @@ const mailTemplate = ({
   </head>
   <body>
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <img src="https://i.ibb.co/Fs5Ggc8/mail-Poster.png" alt="Avenir 2024 Logo" style="max-width: 100%; height: auto; display: block; margin: 0 auto 20px;">
+          <img src="https://res.cloudinary.com/dlbiliyzy/image/upload/v1715175625/Letterhead-Mail_x5d9jv.png" alt="Avenir 2024 Logo" style="max-width: 100%; height: auto; display: block; margin: 0 auto 20px;">
           <h1>Congratulations! Your registration for Avenir 2024 has been successfully verified.</h1>
           
           <p>Dear ${participantName},</p>

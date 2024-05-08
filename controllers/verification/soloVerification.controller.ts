@@ -2,11 +2,12 @@ import { Request, Response } from "express";
 import SingleRegisterModel from "../../models/single.model";
 import MultipleRegisterModel from "../../models/multiple.model";
 import mailTemplate from "../../template/mailTemplate";
+import EventModel from "../../models/event.model";
 const nodemailer = require("nodemailer");
 
 const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
   const _id = req.body.userId;
-  const { participantName, eventName, eventDate, email } = req.body; // Extracting variables from request body
+  const { participantName, eventName, email } = req.body; // Extracting variables from request body
 
   try {
     const updatedTeam = await SingleRegisterModel.findByIdAndUpdate(
@@ -18,7 +19,8 @@ const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
     if (!updatedTeam) {
       return res.status(404).json({ message: "Team not found" });
     }
-
+    const event = await EventModel.findOne({ eventName: eventName });
+    const eventDate = event?.date;
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
