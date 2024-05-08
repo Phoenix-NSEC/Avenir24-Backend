@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import MultipleRegisterModel from "../../models/multiple.model";
-
+import mailTemplate from "../../template/mailTemplate";
 const nodemailer = require("nodemailer");
-const mailTemplate = require("../../template/mailTemplate");
 
 const verifyAndSendEmailMulti = async (req: Request, res: Response) => {
   const _id = req.body.userId;
-
+  const { participantName, eventName, eventDate, email } = req.body;
   try {
     const updatedTeam = await MultipleRegisterModel.findByIdAndUpdate(
       _id,
@@ -35,7 +34,7 @@ const verifyAndSendEmailMulti = async (req: Request, res: Response) => {
       to: req.body.email,
       subject:
         "Congratulations your registration for Avenir 2024 has been successfully verified",
-      html: mailTemplate(),
+      html: mailTemplate({ participantName, eventName, eventDate }),
     };
 
     transporter.sendMail(mailOptions, function (error: any, info: any) {

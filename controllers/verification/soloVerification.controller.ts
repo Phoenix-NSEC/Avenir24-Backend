@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import SingleRegisterModel from "../../models/single.model";
+import MultipleRegisterModel from "../../models/multiple.model";
+import mailTemplate from "../../template/mailTemplate";
 const nodemailer = require("nodemailer");
-const mailTemplate = require("../../template/mailTemplate");
 
 const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
   const _id = req.body.userId;
+  const { participantName, eventName, eventDate, email } = req.body; // Extracting variables from request body
 
   try {
     const updatedTeam = await SingleRegisterModel.findByIdAndUpdate(
@@ -16,10 +18,6 @@ const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
     if (!updatedTeam) {
       return res.status(404).json({ message: "Team not found" });
     }
-    // return res.status(200).json({
-    //   message: "Team verified successfully",
-    //   data: updatedTeam,
-    // });
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -31,10 +29,10 @@ const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
 
     const mailOptions = {
       from: process.env.MAIL_SENDER,
-      to: req.body.email,
+      to: email,
       subject:
         "Congratulations your registration for Avenir 2024 has been successfully verified",
-      html: mailTemplate(),
+      html: mailTemplate({ participantName, eventName, eventDate }), // Passing variables to the mail template
     };
 
     transporter.sendMail(mailOptions, function (error: any, info: any) {
@@ -46,6 +44,7 @@ const verifyAndSendEmailSolo = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error verifying team:", error);
+    return res.status(500).json({ message: "Error sending email" }); // Sending error response
   }
 
   return res.status(200).json({

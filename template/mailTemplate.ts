@@ -1,34 +1,51 @@
-const mailTemplate = () => `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Email Notification</title>
-</head>
-<body>
-  <h1>Your registration has been successfully verified</h1>
-  <p>
-    Congratulations! We're thrilled to inform you that your registration has been successfully verified. You're now a part of our community!
-  </p>
-  <p>
-    At our upcoming event, we look forward to welcoming you and offering valuable insights into the latest industry trends. Your participation will enrich our discussions and contribute to a vibrant exchange of ideas.
-  </p>
-  <p>
-    Should you have any questions or need assistance, please don't hesitate to reach out to us. We're here to ensure your experience with us is seamless and enjoyable.
-  </p>
-  <p>
-    We're excited about the journey ahead and the opportunities to connect, learn, and grow together. Thank you for being a part of our community!
-  </p>
-  <p>For enquiries, please contact:</p>
-  <ul>
-    <li>John Doe - john.doe@example.com</li>
-    <li>Jane Smith - jane.smith@example.com</li>
-  </ul>
-</body>
-</html>
+const mailTemplate = ({
+  participantName,
+  eventName,
+  eventDate,
+}: {
+  participantName: string;
+  eventName: string;
+  eventDate: string;
+}) => {
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Avenir 2024 Registration Confirmation</title>
+  </head>
+  <body>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <img src="https://i.ibb.co/Fs5Ggc8/mail-Poster.png" alt="Avenir 2024 Logo" style="max-width: 100%; height: auto; display: block; margin: 0 auto 20px;">
+          <h1>Congratulations! Your registration for Avenir 2024 has been successfully verified.</h1>
+          
+          <p>Dear ${participantName},</p>
+          
+          <p>We are thrilled to inform you that your registration for the ${eventName} at Avenir’24 has been successfully processed! Congratulations on securing your spot in what promises to be an exhilarating competition filled with excitement, enthusiasm, and enjoyment.</p>
+          
+          <h2>Registration Details:</h2>
+          <ul>
+              <li><strong>Event:</strong>${eventName}</li>
+              <li><strong>Date:</strong>${eventDate}</li>
+          </ul>
+          
+          <p>Please make sure to arrive at the venue well before the designated time, and don't hesitate to reach out to us if you have any questions or require further assistance. Our team is here to support you every step of the way.</p>
+          
+          <p>Once again, congratulations on your successful registration, and we look forward to seeing you shine at Avenir’24!</p>
+          
+          <p>Best regards,<br>
+          PHOENIX</p>
+          
+          <p>For inquiries please contact:</p>
+          <ul>
+              <li>Yash Shaw: 7439558508</li>
+              <li>Rajit Dutta: 9830487386</li>
+          </ul>
+      </div>
+  </body>
+  </html>
+  `;
+};
 
-
-`;
-
-module.exports = mailTemplate;
+export default mailTemplate;
