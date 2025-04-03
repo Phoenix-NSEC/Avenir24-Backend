@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 const uploadOnCloudinary = require("../../utils/cloudinary");
 
 interface MulterRequest extends Request {
@@ -20,4 +20,3 @@ export const uploadImg = async (req: MulterRequest, res: Response) => {
     });
   }
 };
-

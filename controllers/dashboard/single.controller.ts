@@ -19,12 +19,16 @@ const getCSVData = async (req: Request, res: Response) => {
   let solo = [];
   let group = [];
 
-  if (name === "Robo Soccer" || name === "Terra Rover" || name === "Robo War") {
+  if (
+    name === "Hackathon 2025" ||
+    name === "Line-Follower Robot Making" ||
+    name === "BGMI"
+  ) {
     solo = await SingleRegisterModel.find({ event: name });
     group = await MultipleRegisterModel.find({
       $or: [
         { event: name },
-        { event: "COMBO 1 (Robo Soccer, Robo War, Terra Rover)" },
+        { event: "COMBO 1 (Hackathon 2025, Line-Follower Robot Making, BGMI)" },
       ],
     });
   } else {
