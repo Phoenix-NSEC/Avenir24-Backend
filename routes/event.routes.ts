@@ -3,14 +3,15 @@ import { upload } from "../middlewares/multer.middleware";
 import {
   addEvents,
   deleteEvent,
-
-  // getAllEvents,
+  getAllEvents,
   getEvents,
   getIndividualEvent,
 } from "../controllers/events/event.controllers";
 import { downloadCSV } from "../controllers/downloadCSV/downloadCSV.controller";
 
 const router = Router();
+
+router.route("/").get(getAllEvents as any);
 
 router.route("/add-events").post(
   upload.fields([

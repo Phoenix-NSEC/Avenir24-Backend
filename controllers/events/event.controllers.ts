@@ -43,6 +43,22 @@ const addEvents = async (req: MulterRequest, res: Response) => {
   }
 };
 
+const getAllEvents = async (req: Request, res: Response) => {
+  try {
+    const events = await EventModel.find();
+    return res.status(200).json({
+      message: "All events fetched successfully",
+      results: events.length,
+      events,
+    });
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
 const getEvents = async (req: Request, res: Response) => {
   try {
     const subCategory = req.params.subCategory;
@@ -82,22 +98,6 @@ const getIndividualEvent = async (req: Request, res: Response) => {
   }
 };
 
-// const getAllEvents = async (req: Request, res: Response) => {
-//   try {
-//     console.log("test");
-//     const events = await WingModel.find();
-//     console.log(events);
-//     return res.status(200).json({
-//       message: "Events fetched successfully",
-//       events,
-//     });
-//   } catch (error) {
-//     console.error("Error fetching events:", error);
-//     return res.status(500).json({
-//       message: "Internal server error",
-//     });
-//   }
-// };
 const deleteEvent = async (req: Request, res: Response) => {
   try {
     const _id = req.params.eventId;
@@ -121,10 +121,4 @@ const deleteEvent = async (req: Request, res: Response) => {
   }
 };
 
-export {
-  addEvents,
-  getEvents,
-  getIndividualEvent,
-  deleteEvent,
-  // getAllEvents,
-};
+export { addEvents, getEvents, getIndividualEvent, deleteEvent, getAllEvents };
