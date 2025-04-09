@@ -6,6 +6,7 @@ import {
   getAllEvents,
   getEvents,
   getIndividualEvent,
+  updateEvent,
 } from "../controllers/events/event.controllers";
 import { downloadCSV } from "../controllers/downloadCSV/downloadCSV.controller";
 
@@ -31,5 +32,6 @@ router.route("/:subCategory").get(getEvents as any);
 router.route("/:sub/:eventId").get(getIndividualEvent as any);
 // router.route("/all-events").get(getAllEvents as any);
 router.route("/delete-event/:eventId").delete(deleteEvent as any);
+router.route("/update-event/:eventId").patch(updateEvent as any);
 
 export default router;

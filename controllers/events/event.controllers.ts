@@ -121,4 +121,40 @@ const deleteEvent = async (req: Request, res: Response) => {
   }
 };
 
-export { addEvents, getEvents, getIndividualEvent, deleteEvent, getAllEvents };
+const updateEvent = async (req: Request, res: Response) => {
+  try {
+    const event = await EventModel.findByIdAndUpdate(
+      req.params.eventId,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!event) {
+      return res.status(404).json({
+        message: "Event not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Event updated successfully",
+      event,
+    });
+  } catch (error) {
+    console.error("Error updating event:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+export {
+  addEvents,
+  getEvents,
+  getIndividualEvent,
+  deleteEvent,
+  getAllEvents,
+  updateEvent,
+};
