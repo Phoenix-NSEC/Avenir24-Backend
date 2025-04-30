@@ -18,6 +18,7 @@ const corsOptions = {
     "https://avenir-24-demo-inky.vercel.app",
     "https://www.avenirnsec.live",
     "http://localhost:5173",
+    "https://avenirnsec.netlify.app/"
   ],
 };
 
